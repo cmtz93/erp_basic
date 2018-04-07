@@ -1,0 +1,25 @@
+{
+    "name": "cmtz93/inventory",
+    "description": "",
+    "authors": [
+        {
+            "name": "Carlos Martinez",
+            "email": "mtz677@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Inventory\\Providers\\InventoryServiceProvider"
+            ],
+            "aliases": {
+                
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Inventory\\": ""
+        }
+    }
+}
