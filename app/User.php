@@ -3,11 +3,14 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Http\Concerns\Filterable;
+use App\Http\Concerns\Statusable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, SoftDeletes, Filterable, Statusable;
 
     /**
      * The attributes that are mass assignable.
@@ -15,7 +18,13 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'firstname', 'lastname', 'email', 'password', 'username', 'status',
+        'firstname', 
+        'lastname', 
+        'email', 
+        'password', 
+        'username', 
+        'status',
+        'role_id',
     ];
 
     /**
@@ -24,7 +33,19 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 
+        'remember_token',
+        'updated_at',
+        'deleted_at'
+    ];
+
+
+    protected $dates = [
+        'deleted_at'
+    ];
+
+    protected $appends = [
+        'fullname',
     ];
 
 

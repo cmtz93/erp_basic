@@ -2,10 +2,12 @@
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+use App\Helpers\Migration;
 
 class CreateCategoriesTable extends Migration
 {
+    protected $module = 'inventory';
+    protected $table = 'categories';
     /**
      * Run the migrations.
      *
@@ -14,16 +16,22 @@ class CreateCategoriesTable extends Migration
     public function up()
     {
         DB::transaction(function () {            
-            Schema::create('categories', function (Blueprint $table) {
+            Schema::create($this->table, function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('name');
                 $table->text('description')->nullable();
                 $table->boolean('status')->default(true);
                 $table->unsignedInteger('category_id')->nullable();
+                $table->string('cover')->nullable();
+                $table->string('icon')->nullable();
                 $table->timestamps();
                 $table->softDeletes();
+
                 /// FK
-                $table->foreign('category_id')->on('categories')->references('id')->onDelete('cascade');
+                $table->foreign('category_id')
+                    ->on($this->table)
+                    ->references('id')
+                    ->onDelete('CASCADE');
             });
         });
     }
@@ -35,6 +43,8 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        DB::transaction(function () {
+            Schema::dropIfExists($this->table);
+        });
     }
 }

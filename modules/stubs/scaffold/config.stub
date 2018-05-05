@@ -1,0 +1,8 @@
+<?php
+
+return [
+    'name' => '$STUDLY_NAME$',
+    'prefix' => '$LOWER_NAME$',
+    'prefix_db' => '$LOWER_NAME$_',
+];
+

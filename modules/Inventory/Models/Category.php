@@ -2,16 +2,32 @@
 
 namespace Modules\Inventory\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Helpers\Model;
+use App\Http\Concerns\Coverable;
 
 class Category extends Model
 {
-	use SoftDeletes;
+  use Coverable;
+  protected $table = 'categories';
+  protected $module = 'inventory';
+  private $cover_path = '/categories/';
 
-  protected $fillable = ["name","description","cover","icon","status","category_id"];
+  protected $fillable = [
+    "name",
+    "description",
+    "cover",
+    "icon",
+    "status",
+    "category_id"
+  ];
+  
+  protected $casts = [
+    'status'  => 'boolean',
+  ];
 
-
+  protected $dates = [
+    'deleted_at'
+  ];
 
   public function parent()
   {
@@ -26,5 +42,12 @@ class Category extends Model
   public function products()
   {
   	return $this->hasMany(Product::class);
+  }
+
+
+
+  public function scopeCategory($query, $category_id)
+  {
+    return $query->where('category_id', $category_id);
   }
 }

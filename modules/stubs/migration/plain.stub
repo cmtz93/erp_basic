@@ -1,0 +1,34 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use App\Helpers\Migration;
+
+class $CLASS$ extends Migration
+{
+    protected $module = '$LOWER_NAME$';
+    protected $table = '$TABLE$';
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        DB::transaction(function () {
+        //
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        DB::transaction(function () {
+        //
+        });
+    }
+}

@@ -78,4 +78,15 @@ return [
         ],
     ],
 
+    'activity' => [
+        'enable' => env('APP_ACTIVITY', true),
+        'login' => true,
+        'logout'    => true,
+        'passwordReset' => true,
+        'authenticated' => false,
+        'authenticatedAttemp' => false,
+        'failedLogin'   => false,
+        'lockout'   => false,
+    ],
+
 ];

@@ -1,0 +1,10 @@
+<?php
+
+namespace $CLASS_NAMESPACE$;
+
+use App\Http\Controller\Controller;
+use Illuminate\Http\Request;
+
+class $CLASS$ extends FunindesController
+{
+}

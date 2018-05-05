@@ -1,0 +1,56 @@
+<?php
+
+namespace $CLASS_NAMESPACE$;
+
+use App\Http\Controller\Controller;
+use Illuminate\Http\Request;
+
+class $CLASS$ extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     * @return Response
+     */
+    public function index(Request $request)
+    {
+
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     * @param  Request $request
+     * @return Response
+     */
+    public function store(Request $request)
+    {
+
+    }
+
+    /**
+     * Show the specified resource.
+     * @return Response
+     */
+    public function show($id)
+    {
+
+    }
+
+    /**
+     * Update the specified resource in storage.
+     * @param  Request $request
+     * @return Response
+     */
+    public function update(Request $request, $id)
+    {
+
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        
+    }
+}

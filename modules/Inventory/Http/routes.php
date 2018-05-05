@@ -8,4 +8,5 @@ Route::group([
     Route::get('/', 'InventoryController@index');
 
     Route::apiResource('categories', 'CategoryController');
+    Route::apiResource('manufacturers', 'ManufacturerController');
 });

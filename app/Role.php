@@ -1,10 +1,30 @@
 <?php
 namespace App;
 
-use Zizaco\Entrust\EntrustRole;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Http\Concerns\Filterable;
+use App\Http\Concerns\Statusable;
+use Illuminate\Database\Eloquent\Model;
 
-class Role extends EntrustRole
+class Role extends Model
 {
-    //
-	protected $fillable = ['name','display_name', 'description','status'];
+	use SoftDeletes, Filterable, Statusable;
+
+	protected $fillable = [
+		'name',
+		'display_name', 
+		'description',
+		'status'
+	];
+
+	public function users()
+	{
+		return $this->hasMany(User::class);
+	}
+
+	public function permissions()
+	{
+		return $this->belongsToMany(Permission::class);
+	}
+
 }

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        Schema::defaultStringLength(191);
         $this->registerResponseMacros();
     }
 
@@ -33,22 +35,22 @@ class AppServiceProvider extends ServiceProvider
     {
         $response = app(ResponseFactory::class);
 
-        $response->macro('success', function ($message, $data , $status = 200) use ($response) {
+        $response->macro('success', function ($message = null, $data = null , $status = 200, $meta_data = null) use ($response) {
+            if ( is_null($message) ) $status = 204;
             return $response->json([
-                'errors' => false,
                 'message' => $message,
-                'data' => $data
+                'data'    => $data,
+                'meta_data' => $meta_data,
+                'errors'  => false,
             ], $status);
         });
 
-        $response->macro('error', function ($message, $status = 422, $additional_info = []) use ($response) {
+        $response->macro('errors', function ($message = null, $errors = [], $status = 404, $meta_data = null) use ($response) {
+            if ( is_null($message) ) $message = __('message.errors');
             return $response->json([
-                'message' => $status . ' error',
-                'errors' => [
-                    'message' => $message,
-                    'info' => $additional_info,
-                ],
-                'status_code' => $status
+                'message' => $message,
+                'errors'  => $errors,
+                'meta_data' => $meta_data,
                 ], $status);
         });
     }

@@ -1,0 +1,101 @@
+<?php
+
+namespace $NAMESPACE$;
+
+use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+class $CLASS$ extends TestCase
+{
+    private $data = [
+        'name' => 'lorem',
+        'description' => 'ipsum',
+    ];
+
+    private $route = '/sgp/models';
+
+    private $model = \Modules\SGP\Models\Model::class;
+    private $modelStructure = ['id', 'name', 'description' ,'status' , 'created_at', 'updated_at'];
+
+
+    #TEST ALL 
+    public function testAll()
+    {
+        $factorys = factory($this->model, 10)->create();
+
+        $this->json('GET' ,$this->route)
+            ->assertStatus(200)
+            ->assertJson([
+                'data' => true,
+            ])
+            ->assertJsonStructure([
+                'data' => [
+                    '*' => $this->modelStructure,
+                ]
+            ]);
+    }
+
+    #TEST CREATE 
+    public function testCreate()
+    {
+        $this->json('POST', $this->route, $this->data)
+            ->assertStatus(201)
+            ->assertJson([
+                'data' => true,
+            ]);
+    }
+
+    #TEST CREATE FAIL 
+    public function testCreateFail()
+    {
+        $badData = [
+            'description' => 'badData',
+        ];
+        $this->json('POST', $this->route, $badData)
+            ->assertStatus(422)
+            ->assertJson([
+                'errors' => true
+            ]);
+    }
+
+    #TEST SHOW 
+    public function testShow()
+    {
+        $factory = factory($this->model)->create();
+
+        $this->json('GET' ,$this->route.'/'.$factory->id)
+            ->assertStatus(200)
+            ->assertJson([
+                'data' => true,
+                'data' => [
+                    'name' => $factory->name,
+                ]
+            ]);
+    }
+
+    #TEST UPDATE 
+    public function testUpdate()
+    {
+        $factory = factory($this->model)->create();
+
+        $this->json('PUT' ,$this->route.'/'.$factory->id , $this->data )
+            ->assertStatus(200)
+            ->assertJson([
+                'data' => true,
+                'data' => [
+                    'name' => $this->data['name'],
+                ]
+            ]);
+    }
+
+    #TEST DELETE 
+    public function testDelete()
+    {
+        $factory = factory($this->model)->create();
+
+        $this->json('DELETE' ,$this->route.'/'.$factory->id )
+            ->assertStatus(204);
+    }
+
+
+}

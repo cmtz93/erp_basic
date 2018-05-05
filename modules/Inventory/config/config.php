@@ -1,5 +1,7 @@
 <?php
 
 return [
-    'name' => 'Inventory'
+    'name' => 'Inventory',
+    'prefix_db' => 'inv_',
+    'prefix' => 'inventory',
 ];
