@@ -11,13 +11,18 @@ class Attribute extends Model
 
   protected $fillable = [
   	'name',
+    'description',
   	'value_type',
   	'status',
   	'is_stock',
+    'category_id',
+    'required',
   ];
 
   protected $casts = [
-    'status'  => 'boolean',
+    'status'    => 'boolean',
+    'required'  => 'boolean',
+    'is_stock'  => 'boolean',
   ];
 
   protected $dates = [
@@ -32,5 +37,15 @@ class Attribute extends Model
   public function products()
   {
   	return $this->belongsToMany(Product::class, 'attribute_product');
+  }
+
+  public function category()
+  {
+    return $this->belongsTo(Category::class);
+  }
+
+  public function scopeCategory($query, $category_id)
+  {
+    return $query->where('category_id', $category_id);
   }
 }

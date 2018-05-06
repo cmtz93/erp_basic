@@ -1,27 +1,26 @@
 <?php
+
 namespace Modules\Inventory\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Modules\Inventory\Models\Manufacturer;
 use App\Http\Concerns\Crudable;
+use Modules\Inventory\Models\Value;
 
-class ManufacturerController extends Controller
+class ValueController extends Controller
 {
     use Crudable;
 
     private $rules = [
-        'name'      => 'required|string|max:255',
-        'status'    => 'required|boolean',
-        'quality'   =>'required|integer|min:1|max:5',
-        'description' => 'nullable|string',
-        'cover'     => 'nullable|image',
+        'value'         => 'required|string|max:255',
+        'status'        => 'required|boolean',
+        'attribute_id'  => 'required|exists:inv_attributes,id',
     ];
 
-    private $attribute = 'manufacturer';
-    private $Model = Manufacturer::class;
-    private $attributes = ['id', 'name', 'description', 'cover', 'quality', 'status'];
-    private $filters = ['filter.name','filter.quality', 'filter.status'];
+    private $attribute = 'value';
+    private $Model = Value::class;
+    private $attributes = ['id', 'value', 'status', 'attribute_id'];
+    private $filters = ['filter.value', 'filter.status', 'filter.attribute'];
     private $response = array ('actions' => ['show' , 'edit', 'destroy']);
 
     /**
@@ -30,7 +29,7 @@ class ManufacturerController extends Controller
      */
     public function index(Request $request)
     {
-        $builder = $this->Model::select($this->attributes);
+        $builder = $this->Model::select($this->attributes)->with('attribute:id,name');
         if ($request->has('filter')) $builder->filter($request->only($this->filters));
         if ($request->has('all')) $this->response['data'] = $builder->get();
         else $this->response = array_merge(
@@ -39,5 +38,4 @@ class ManufacturerController extends Controller
             );
         return $this->list();
     }
-
 }

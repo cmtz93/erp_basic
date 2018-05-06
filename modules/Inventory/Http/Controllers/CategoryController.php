@@ -39,8 +39,8 @@ class CategoryController extends Controller
         if ($request->has('parent')) $builder->with('parent:id,name');
         if ($request->has('all')) $this->response['data'] = $builder->get();
         else $this->response = array_merge(
-            $this->response, 
-            $builder->paginate($request->get('perPage'))->toArray() 
+                $this->response, 
+                $builder->paginate($request->get('perPage'))->toArray() 
             );
         return $this->list();
     }    

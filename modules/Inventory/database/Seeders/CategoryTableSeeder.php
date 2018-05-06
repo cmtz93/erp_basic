@@ -15,9 +15,11 @@ class CategoryTableSeeder extends Seeder
      */
     public function run()
     {
-        
-        factory(Category::class, 6)->create()->each(function ($c) {
-            factory(Category::class, 10)->create([
+        foreach (Category::all() as $m) {
+            $m->forceDelete();
+        }
+        factory(Category::class, 10)->create()->each(function ($c) {
+            factory(Category::class, rand(5,10))->create([
                 'category_id' => $c->id
                 ]);
         });

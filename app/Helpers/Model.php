@@ -21,6 +21,7 @@ class Model extends BaseModel
 	protected $module;
 	protected $prefix;
 
+	protected $perPage = 25;
 
   public function __construct(array $attributes = [])
   {

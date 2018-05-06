@@ -9,4 +9,10 @@ Route::group([
 
     Route::apiResource('categories', 'CategoryController');
     Route::apiResource('manufacturers', 'ManufacturerController');
+    Route::apiResource('statuses', 'StatusController');
+    Route::apiResource('attributes', 'AttributeController');
+    Route::apiResource('values', 'ValueController');
+    
+    Route::apiResource('products', 'ProductController');
+
 });

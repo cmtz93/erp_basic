@@ -12,7 +12,7 @@ return [
     | has failed, such as for an invalid token or invalid new password.
     |
     */
-    'list'      => 'List :Attribute',
+    'list'      => 'List of :Attribute',
     'show'      => 'Show :Attribute',
     'created'   => 'Created :Attribute',
     'updated'   => 'Updated :Attribute',

@@ -28,10 +28,10 @@ class CreateProductsTable extends Migration
                 $table->string('barcode')->nullable();
                 $table->text('description')->nullable();
                 $table->string('cover')->nullable();
-                $table->integer('status')->default(0);
 
                 $table->unsignedInteger('category_id');
                 $table->unsignedInteger('manufacturer_id');
+                $table->unsignedInteger('status_id');
 
                 $table->foreign('category_id')
                     ->references('id')
@@ -41,6 +41,11 @@ class CreateProductsTable extends Migration
                 $table->foreign('manufacturer_id')
                     ->references('id')
                     ->on($this->prefix . 'manufacturers')
+                        ->onUpdate('CASCADE');
+
+                $table->foreign('status_id')
+                    ->references('id')
+                    ->on($this->prefix . 'statuses')
                         ->onUpdate('CASCADE');
 
                 $table->timestamps();

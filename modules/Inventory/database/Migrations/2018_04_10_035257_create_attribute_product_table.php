@@ -25,7 +25,7 @@ class CreateAttributeProductTable extends Migration
                 $table->increments('id');
                 $table->unsignedInteger('attribute_id');
                 $table->unsignedInteger('product_id');
-                $table->unsignedInteger('value_id');
+                $table->unsignedInteger('value_id')->nullable();
                 $table->string('value')->nullable();
 //                $table->integer('qty')->nullable();
 //                $table->decimal('price',7,2)->nullable();

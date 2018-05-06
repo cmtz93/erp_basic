@@ -1,27 +1,26 @@
 <?php
+
 namespace Modules\Inventory\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Modules\Inventory\Models\Manufacturer;
+use Illuminate\Http\Request;
 use App\Http\Concerns\Crudable;
+use Modules\Inventory\Models\Status;
 
-class ManufacturerController extends Controller
+class StatusController extends Controller
 {
     use Crudable;
 
     private $rules = [
-        'name'      => 'required|string|max:255',
-        'status'    => 'required|boolean',
-        'quality'   =>'required|integer|min:1|max:5',
-        'description' => 'nullable|string',
-        'cover'     => 'nullable|image',
+        'name'          => 'required|string|max:255',
+        'description'   => 'nullable|string',
+        'status'        => 'required|boolean',
     ];
 
-    private $attribute = 'manufacturer';
-    private $Model = Manufacturer::class;
-    private $attributes = ['id', 'name', 'description', 'cover', 'quality', 'status'];
-    private $filters = ['filter.name','filter.quality', 'filter.status'];
+    private $attribute = 'status';
+    private $Model = Status::class;
+    private $attributes = ['id', 'name', 'description', 'status'];
+    private $filters = ['filter.name', 'filter.status'];
     private $response = array ('actions' => ['show' , 'edit', 'destroy']);
 
     /**
@@ -39,5 +38,4 @@ class ManufacturerController extends Controller
             );
         return $this->list();
     }
-
 }

@@ -27,4 +27,15 @@ class Value extends Model
   {
   	return $this->belongsTo(Attribute::class);
   }
+
+
+  public function scopeAttribute($query, $attribute_id)
+  {
+    return $query->where('attribute_id', $attribute_id);
+  }
+
+  public function scopeValue($query, $value)
+  {
+    return $query->whereValue($value);
+  }
 }

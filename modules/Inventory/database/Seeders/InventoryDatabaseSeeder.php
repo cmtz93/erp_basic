@@ -16,6 +16,11 @@ class InventoryDatabaseSeeder extends Seeder
     {
         $this->call([
             CategoryTableSeeder::class,
+            StatusTableSeeder::class,
+            ManufacturerTableSeeder::class,
+            AttributeTableSeeder::class,
+            ProductTableSeeder::class,
+
         ]);
     }
 }
