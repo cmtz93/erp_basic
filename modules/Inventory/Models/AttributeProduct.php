@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 class AttributeProduct extends Pivot
 {
   protected $module = 'inventory';
-  protected $table =  'attribute_products';
+  protected $table =  'attribute_product';
 
   public function __construct(array $attributes = [])
   {
@@ -29,4 +29,18 @@ class AttributeProduct extends Pivot
   	'value',
   	'value_id'
   ];
+
+  public function attribute()
+  {
+  	return $this->belongsTo(Attribute::class);
+  }
+
+  public function product()
+  {
+  	return $this->belongsTo(Product::class);
+  }
+  public function option()
+  {
+  	return $this->belongsTo(Value::class);
+  }
 }

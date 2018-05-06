@@ -49,6 +49,10 @@ class ProductController extends Controller
                 'category:id,name',
                 'status:id,name',
                 'manufacturer:id,name',
+                'attributes',
+                'attributes.values:id,value,attribute_id' /* => function ($query) {
+                    return $query->select('id','name');
+                }*/
             ]);
         if ($request->has('filter')) $builder->filter($request->only($this->filters));
         if ($request->has('all')) $this->response['data'] = $builder->get();
@@ -56,6 +60,20 @@ class ProductController extends Controller
                 $this->response, 
                 $builder->paginate($request->get('perPage'))->toArray() 
             );
+        $this->response['data'] = array_map(function ($product) {
+            if (isset($product['attributes'])) {
+                $product['attributes'] = array_map(function ($attribute) {
+                    $data['id'] = $attribute['id'];
+                    $data['name'] = $attribute['name'];
+                    $data['value_type'] = $attribute['value_type'];
+                    $data['values'] = $attribute['values'];
+                    $data['value'] = $attribute['pivot']['value'];
+                    $data['value_id'] = $attribute['pivot']['value_id'];
+                    return $data;
+                }, $product['attributes']);
+            }
+            return $product;
+        }, $this->response['data']);
         return $this->list();
     }
 }

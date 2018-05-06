@@ -11,7 +11,7 @@ use Modules\Inventory\Models\Product;
 class CreateAttributeProductTable extends Migration
 {
     protected $module = 'inventory';
-    protected $table = 'attribute_products';
+    protected $table = 'attribute_product';
     /**
      * Run the migrations.
      *

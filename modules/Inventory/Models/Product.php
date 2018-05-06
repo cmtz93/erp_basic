@@ -43,7 +43,10 @@ class Product extends Model
 
   public function attributes()
   {
-  	return $this->belongsToMany(Attribute::class, 'attribute_product')->withPivot('value');
+    return $this->belongsToMany(Attribute::class, $this->prefix . 'attribute_product')
+      ->using(AttributeProduct::class)
+      ->withPivot(['value','value_id']);
+  	//return $this->belongsToMany(Attribute::class, 'attribute_product')->withPivot('value');
   }
 
   public function status()
