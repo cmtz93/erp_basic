@@ -77,6 +77,7 @@ trait Crudable
    */
   public function list()
   {
+    if(\Request::has('all')) $this->response['total'] = count($this->response['data']);
     return response()
       ->success(
         __('message.list', ['attribute' => str_plural($this->attribute)]), 

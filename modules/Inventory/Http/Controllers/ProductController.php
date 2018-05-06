@@ -49,13 +49,10 @@ class ProductController extends Controller
                 'category:id,name',
                 'status:id,name',
                 'manufacturer:id,name',
-                'attributes',
-                'attributes.values:id,value,attribute_id' /* => function ($query) {
-                    return $query->select('id','name');
-                }*/
+                'attributes.values:id,value,attribute_id'
             ]);
         if ($request->has('filter')) $builder->filter($request->only($this->filters));
-        if ($request->has('all')) $this->response['data'] = $builder->get();
+        if ($request->has('all')) $this->response['data'] = $builder->get()->toArray();
         else $this->response = array_merge(
                 $this->response, 
                 $builder->paginate($request->get('perPage'))->toArray() 
