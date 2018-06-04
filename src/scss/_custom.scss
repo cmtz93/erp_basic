@@ -1,0 +1,23 @@
+// Here you can add other styles
+.table th, .table td {
+	vertical-align: middle;
+}
+.pointer {
+	cursor: pointer;
+
+	&:hover {
+		color: $blue
+	}
+}
+
+.table-data {
+	tr > td:last-of-type , tr > th:last-of-type {
+		width: 120px;
+		text-align: center;
+	}
+}
+
+.dropdown-menu-right {
+	right: 0;
+	left: auto;
+}

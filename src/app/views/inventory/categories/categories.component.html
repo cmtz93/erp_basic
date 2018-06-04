@@ -1,0 +1,112 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-10">
+      <div class="card">
+        <div class="card-header">
+          <i class="icon-frame"></i> {{ title }}
+          <div class="btn-group float-right mb-0">
+            <a [routerLink]="['create']" class="btn btn-sm btn-outline-primary"><i class="icon-plus"></i> Create</a>
+            <div class="btn-group" ngbDropdown placement="bottom-right" role="group" aria-label="Button group with nested dropdown">
+              <button class="btn btn-secondary btn-sm" ngbDropdownToggle><i class="fa fa-cog"></i></button>
+              <div class="dropdown-menu" ngbDropdownMenu>
+                <button class="dropdown-item" type="button" (click)="toggleFilter()">Filtro</button>
+                <button class="dropdown-item">Two</button>
+                <button class="dropdown-item">Four!</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--<div class="card-body">-->
+          <table class="table table-hover table-striped table-sm table-data">
+            <thead>
+              <tr>
+                <th *ngFor="let field of fields"><i *ngIf="field.sortable" (click)="sortChange(field)" class="fa fa-fw pointer" [ngClass]="{ 'fa-sort' : field.sortable && sortBy != field.key , 
+                  'fa-sort-desc' : sortBy == field.key && sortDesc === false,
+                  'fa-sort-asc' : sortBy == field.key && sortDesc
+                   }"></i> {{ field.label }}</th>
+              </tr>
+            </thead>
+          <!-- DATA -->
+            <tbody>
+              <tr *ngIf="showFilter">
+                <td *ngFor="let field of fields" class="p-1">
+                  <div *ngIf="field.filter">
+                    <input type="text" class="form-control form-control-sm" name="filter" [(ngModel)]="filter[field.key]">
+                  </div>
+                </td>
+              </tr>
+              <tr *ngFor="let item of items">
+                <ng-container *ngFor="let field of fields">
+                  <td *ngIf="field.render != false; else elseBlock" [innerHTML]="renderItems(item, field)"></td>
+                  <ng-template #elseBlock>
+                    <td>
+                      <div class="btn-group">
+                        <a class="btn btn-sm btn-primary" [routerLink]="['show',item.id]" ngbTooltip="Show" container="body"><i class="icon-pencil"></i></a>
+                        <button class="btn btn-sm btn-danger" type="button" (click)="destroy(item)" ngbTooltip="Delete" container="body"><i class="icon-trash"></i></button>
+                      </div>
+                    </td>
+                  </ng-template>
+                </ng-container>
+              </tr>
+              <tr *ngIf="items.length < 1">
+                <td class="text-center">No records</td>
+              </tr>
+            </tbody>
+          </table>  
+          <div class="row px-3">
+            <div class="col-6">
+              <span>Items per page: </span>
+              <select [(ngModel)]="metadata.per_page" (ngModelChange)="pageChange($event)">
+                <option *ngFor="let opt of pageOptions" [value]="opt">{{ opt }}</option>
+              </select>
+              <span> {{ metadata.from + '-' + metadata.to + ' of ' + metadata.total }}</span>
+            </div>
+            <div class="col-6">              
+              <ngb-pagination class="d-flex justify-content-end" [collectionSize]="metadata.total" [(page)]="metadata.current_page" aria-label="Default pagination" [pageSize]="metadata.per_page" (pageChange)="pageChange($event)" [maxSize]="5"></ngb-pagination>
+            </div>
+          </div>        
+        <!--</div>-->
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="card text-white bg-warning">
+        <div class="card-body">
+          <div class="h1 text-muted text-right mb-4">
+            <i class="icon-basket-loaded"></i>
+          </div>
+          <div class="h4 mb-0">1238</div>
+          <small class="text-muted text-uppercase font-weight-bold">Products sold</small>
+          <div class="progress progress-white progress-xs mt-3">
+            <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card text-white bg-warning">
+        <div class="card-body">
+          <div class="h1 text-muted text-right mb-4">
+            <i class="icon-basket-loaded"></i>
+          </div>
+          <div class="h4 mb-0">1238</div>
+          <small class="text-muted text-uppercase font-weight-bold">Products sold</small>
+          <div class="progress progress-white progress-xs mt-3">
+            <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card text-white bg-warning">
+        <div class="card-body">
+          <div class="h1 text-muted text-right mb-4">
+            <i class="icon-basket-loaded"></i>
+          </div>
+          <div class="h4 mb-0">1238</div>
+          <small class="text-muted text-uppercase font-weight-bold">Products sold</small>
+          <div class="progress progress-white progress-xs mt-3">
+            <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
