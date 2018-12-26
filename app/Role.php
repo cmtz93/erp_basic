@@ -10,6 +10,8 @@ class Role extends Model
 {
 	use SoftDeletes, Filterable, Statusable;
 
+	protected $table = "roles";
+
 	protected $fillable = [
 		'name',
 		'display_name', 
